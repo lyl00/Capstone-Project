@@ -5,7 +5,7 @@
 * In this project, you could design the relative configuration of the end-effector and the cube when grasping, planning the end-effectors' trajectory as you like, and adjust the controller parameter to get better performance. The project uses velocity control so no robot dynamics is involved.  
 * Details of the project (basic operations on VREP, Initial configurations, size of the mobile base, screw axis......) could be found on the [project web page](http://hades.mech.northwestern.edu/index.php/Mobile_Manipulation_Capstone)
 
-![Youbot_cube](./results/Youbot_cube.png)
+![youBot_cube](./results/youBot_cube.png)
 
 
 

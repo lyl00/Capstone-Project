@@ -32,12 +32,11 @@ Blists = [[0,0,1,0,0.033,0]',[0,-1,0,-0.5076,0,0]',[0,-1,0,-0.3526,0,0]'...
 % cube configuration
 T_sc_initial = RpToTrans(eye(3),[1,0,0.025]');
 T_sc_goal = RpToTrans(rotz(-pi/2),[0,-1,0.025]');
-disp('Initialization completed');
-a = pi/4;
+a = pi/5;
 T_ce_standoff = [[-sin(a),0,-cos(a),0]',[0,1,0,0]',[cos(a),0,-sin(a),0]',...
-    [0.01,0,0.2,1]'];
+    [0,0,0.25,1]'];
 T_ce_grasp = [[-sin(a),0,-cos(a),0]',[0,1,0,0]',[cos(a),0,-sin(a),0]',...
-    [0.01,0,0,1]'];
+    [0,0,0,1]'];
 % end-effector planned configuration(reference) 
 T_se_initial = [0,0,1,0;0,1,0,0;-1,0,0,0.5;0,0,0,1];
 T_standoff_initial = T_sc_initial * T_ce_standoff;
@@ -68,7 +67,7 @@ for i = 1:8
     end
     
     Trajectory = Mybot.TrajectoryGenerator(T_configure{i},...
-        T_configure{i+1},Tf(i),dt,grasp_state,'Screw',5);
+        T_configure{i+1},Tf(i),dt,grasp_state,'Cartesian',5);
     Traj = [Traj;Trajectory];
 end
 writematrix(Traj,'Traj.csv');
@@ -79,24 +78,26 @@ disp('Trajectory generated');
 Mybot.q = [0,0,0];
 Mybot.theta = [0,0,0.2,-1.67,0]';
 Mybot.wheelAngle = [pi/2,pi/2,pi/2,pi/2];% Do not affect the simulation
-Mybot.kp = 5 * eye(6);
+Mybot.kp = 1.5 * eye(6);
 Mybot.ki = 0 * eye(6);
 maxspeed = 12.3*ones(1,9);% take uniform max speed.
 jointLimits = [[pi,-pi]',[pi,-pi]',...
-    [pi,-pi]',[pi,-pi/2]'...
+    [pi,-pi]',[pi,-pi]'...
     ,[pi,-pi]'];% Designed values to avoid collision : [max;min]
 
 [Td,grasp] = traj2mat(Traj);% Td is a 3D matrix
+
+% Apply Fb control to the Youbot object.
 % All other parameter needed is included in the obj's property.
 [Animation,Xerr] = Mybot.FeedbackControl(dt,Td,maxspeed,grasp,jointLimits);
 disp('Feedback Control applied, Animation file generated');
 
 % plot the error twist between the reference configuration and current
 % configurtaion: to see the control system performance.
-p = plot(Xerr');
-title('Xerr versus time')
-xlabel('Time (0.01s)');
-ylabel('Error Twist');
+p = plot(Xerr','LineWidth',1.5);
+title('Xerr versus time','FontSize',12,'FontWeight','bold')
+xlabel('Time (0.01s)','FontSize',12,'FontWeight','bold');
+ylabel('Error Twist','FontSize',12,'FontWeight','bold');
 legend(p,'Wx','Wy','Wz','Vx','Vy','Vz')
 grid on;
 writematrix(Animation,'Animation.csv');
