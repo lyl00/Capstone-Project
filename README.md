@@ -5,7 +5,7 @@
 * In this project, you could design the relative configuration of the end-effector and the cube when grasping, planning the end-effectors' trajectory as you like, and adjust the controller parameter to get better performance. The project uses velocity control so no robot dynamics is involved.  
 * Details of the project (basic operations on VREP, Initial configurations, size of the mobile base, screw axis......) could be found on the [project web page](http://hades.mech.northwestern.edu/index.php/Mobile_Manipulation_Capstone)
 
-![Youbot_cube](D:\Doc\UCSD Courses\MAE204\Homework\Final Project\Milestone Project\results\Youbot_cube.png)
+![Youbot_cube](./results/Youbot_cube.png)
 
 
 
@@ -21,7 +21,7 @@ To get a balance between faster error twist convergence speed and less oscillati
 
 
 
-<img src="D:\Doc\UCSD Courses\MAE204\Homework\Final Project\Milestone Project\results\best_controller_errorPlot.png" alt="best_controller_errorPlot" style="zoom: 200%;" /> 
+<img src="./results/best_controller_errorPlot.png" alt="best_controller_errorPlot" style="zoom: 200%;" /> 
 
 ## Instructions
 
